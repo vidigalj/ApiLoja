@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Models.Interfaces
@@ -10,5 +12,10 @@ namespace Models.Interfaces
         Task<T> Add(T entity);
         Task<T> Update(T entity);
         Task<T> Delete(int id);
+        Task<T> GetByName(Expression<Func<T, bool>> filter,
+                                                Func<T, object> orderingFunction = null,
+                                                bool orderingAsc = true,
+                                                int skip = 0,
+                                                int pageLength = -1);
     }
 }

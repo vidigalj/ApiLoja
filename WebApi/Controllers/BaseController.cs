@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Models.Entities;
 using Models.Interfaces;
+using Repository.Repositories;
 
 namespace WebApi.Controllers
 {
@@ -71,6 +73,5 @@ namespace WebApi.Controllers
             }
             return entity;
         }
-
     }
 }

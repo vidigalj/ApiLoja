@@ -57,39 +57,34 @@ namespace Repository.Repositories
             return entity;
         }
 
-        public Task<List<TEntity>> GetByFilter(
+        public async Task<TEntity> GetByName(
                                                 Expression<Func<TEntity, bool>> filter,
                                                 Func<TEntity, object> orderingFunction = null,
                                                 bool orderingAsc = true,
                                                 int skip = 0,
                                                 int pageLength = -1)
         {
-            using (var context = new AppDbContext())
-            {
-                IQueryable<TEntity> query = context.Set<TEntity>()
-                        .Where(filter)
-                        .AsQueryable();
 
-                if (Includes.Any())
-                    foreach (string include in Includes)
-                    {
-                        query = query.Include(include);
-                    }
+            IQueryable<TEntity> query = context.Set<TEntity>()
+                    .Where(filter)
+                    .AsQueryable();
 
-                if (orderingAsc)
-                    query = query.OrderBy(orderingFunction ?? (p => "")).AsQueryable();
-                else
-                    query = query.OrderByDescending(orderingFunction ?? (p => "")).AsQueryable();
+            if (orderingAsc)
+                query = query.OrderBy(orderingFunction ?? (p => "")).AsQueryable();
+            else
+                query = query.OrderByDescending(orderingFunction ?? (p => "")).AsQueryable();
 
-                query = query.Skip(skip);
+            query = query.Skip(skip);
 
-                if (pageLength > -1)
-                    query = query.Take(pageLength);
+            if (pageLength > -1)
+                query = query.Take(pageLength);
 
-                return query.AsNoTracking().ToListAsync();
-            }
+            var entityId = query.LastOrDefault().Id;
+            var entity = Get(entityId);
+
+            return await entity;
+
         }
-        public List<string> Includes { get; set; }
 
     }
 }

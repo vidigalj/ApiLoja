@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Models.Entities;
+using Models.Interfaces;
 using Repository.Context;
 using Repository.Repositories;
 
@@ -18,18 +19,19 @@ namespace WebApi.Controllers
         private ProductRepository productRepository;
         public ProductController(ProductRepository repository) : base(repository)
         {
+            this.productRepository = repository;
         }
         // GET: api/[controller]/name
-        [HttpGet("{name}")]
+        [HttpGet("GetByName/{name}")]
         public async Task<ActionResult<Product>> GetByName(string name)
         {
-            var entityId = productRepository.GetByFilter(x => x.Name == name).Id;
-            var entity = await productRepository.Get(entityId);
+            var entity = await productRepository.GetByName(x => x.Name == name);
             if (entity == null)
             {
                 return NotFound();
             }
             return entity;
         }
+
     }
 }

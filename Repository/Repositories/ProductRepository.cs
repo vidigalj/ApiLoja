@@ -9,7 +9,6 @@ namespace Repository.Repositories
 {
     public class ProductRepository : EFCoreRepository<Product, AppDbContext>
     {
-        private AppDbContext context;
         public ProductRepository(AppDbContext context) : base(context)
         {
         }
