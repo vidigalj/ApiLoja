@@ -17,12 +17,6 @@ namespace Models.Entities
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
 
-        [Required]
-        public decimal ProductValue { get; set; }
-
-        [Required]
-        public string ProductName { get; set; }
-
         public int OrderId { get; set; }
 
         [ForeignKey("OrderId")]
