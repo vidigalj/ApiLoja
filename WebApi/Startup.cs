@@ -32,6 +32,9 @@ namespace WebApi
             services.AddEntityFrameworkSqlServer()
                     .AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
             services.AddScoped<ProductRepository>();
+            services.AddScoped<OrderRepository>();
+            services.AddScoped<OrderItemRepository>();
+
 
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Loja .Net Core API", Version = "v1" }));
         }
