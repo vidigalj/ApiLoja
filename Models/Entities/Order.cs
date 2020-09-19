@@ -15,7 +15,5 @@ namespace Models.Entities
 
         [Required]
         public decimal TotalValue { get; set; }
-
-        public List<OrderItem> Itens { get; set; }
     }
 }
