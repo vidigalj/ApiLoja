@@ -13,11 +13,5 @@ namespace Repository.Repositories
         public ProductRepository(AppDbContext context) : base(context)
         {
         }
-        public async Task<Product> GetByName(int name)
-        {
-
-            return await context.Set<Product>().FindAsync(name);
-        }
-
     }
 }

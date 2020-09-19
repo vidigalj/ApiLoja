@@ -19,11 +19,12 @@ namespace WebApi.Controllers
         public ProductController(ProductRepository repository) : base(repository)
         {
         }
-        // GET: api/[controller]/5
-        [HttpGet("{id}")]
+        // GET: api/[controller]/name
+        [HttpGet("{name}")]
         public async Task<ActionResult<Product>> GetByName(string name)
         {
-            var entity = await productRepository.GetByName(name);
+            var entityId = productRepository.GetByFilter(x => x.Name == name).Id;
+            var entity = await productRepository.Get(entityId);
             if (entity == null)
             {
                 return NotFound();
