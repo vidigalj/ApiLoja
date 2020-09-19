@@ -15,8 +15,20 @@ namespace WebApi.Controllers
     [ApiController]
     public class ProductController : BaseController<Product, ProductRepository>
     {
+        private ProductRepository productRepository;
         public ProductController(ProductRepository repository) : base(repository)
         {
+        }
+        // GET: api/[controller]/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Product>> GetByName(string name)
+        {
+            var entity = await productRepository.GetByName(name);
+            if (entity == null)
+            {
+                return NotFound();
+            }
+            return entity;
         }
     }
 }
